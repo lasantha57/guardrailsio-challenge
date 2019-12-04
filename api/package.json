@@ -1,10 +1,11 @@
 {
     "name": "guardrailsio-challenge-api",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "description": "GuardRails Challenge",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon index",
+        "start": "node index",
+        "start:dev": "nodemon index",
         "test": "test"
     },
     "author": "Lasantha Basnayake",
