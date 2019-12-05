@@ -2,15 +2,17 @@
     "name": "guardrailsio-challenge-api",
     "version": "0.1.0",
     "description": "GuardRails Challenge",
-    "main": "index.js",
+    "main": "server.js",
     "scripts": {
-        "start": "node index",
-        "start:dev": "nodemon index",
+        "start": "node server",
+        "start:dev": "nodemon server",
         "test": "test"
     },
     "author": "Lasantha Basnayake",
     "license": "ISC",
     "devDependencies": {
+        "eslint": "6.7.2",
+        "eslint-plugin-security": "1.4.0",
         "nodemon": "2.0.1"
     },
     "dependencies": {
