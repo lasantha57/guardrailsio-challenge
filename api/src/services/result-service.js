@@ -22,7 +22,16 @@ class ResultService {
         }
     }
 
+    async deleteById(id) {
+        try {
+            return await Result.remove({ '_id': id });
+        } catch (error) {
+            throw new AppError(500, `Unable to delete record - ${error}`)
+        }
+    }
+
     async create(result) {
+
         try {
             const newResult = await Result.create(result);
             return newResult;

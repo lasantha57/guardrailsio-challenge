@@ -6,6 +6,8 @@ router.get('/', ResultController.getAll);
 
 router.get('/:id', ResultController.getById);
 
+router.delete('/:id', ResultController.deleteById);
+
 router.post('/', ResultController.create);
 
 module.exports = router;

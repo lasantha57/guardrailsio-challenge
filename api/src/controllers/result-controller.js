@@ -23,7 +23,21 @@ class ResultController {
             if (ValidationHelper.isNotNullOrEmpty(id)) {
                 throw new AppError(404, 'missing required id');
             }
-            const results = await ResultService.getById(req.params.id);
+            const results = await ResultService.getById(id);
+            res.json(results);
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async deleteById(req, res, next) {
+        const id = req.params.id;
+
+        try {
+            if (ValidationHelper.isNotNullOrEmpty(id)) {
+                throw new AppError(404, 'missing required id');
+            }
+            const results = await ResultService.deleteById(id);
             res.json(results);
         } catch (error) {
             next(error)
@@ -31,11 +45,16 @@ class ResultController {
     }
 
     async create(req, res, next) {
-        const payload = req.body;
+        const { status, repositoryName, findings, queuedAt, scanningAt, finishedAt } = req.body;
 
         try {
             const newResult = await ResultService.create({
-                ...payload
+                status,
+                repositoryName,
+                findings,
+                queuedAt,
+                scanningAt,
+                finishedAt
             });
             res.json(newResult);
         } catch (error) {
