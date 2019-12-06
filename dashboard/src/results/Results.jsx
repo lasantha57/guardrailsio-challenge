@@ -51,12 +51,12 @@ class Results extends Component {
             return (
                 results && results.map((value) => {
                     return <tr key={value.id} onClick={() => this.showFindings(value.id)}>
-                        <td className="py-1">{value.repository}</td>
-                        <td className="py-1">{value.status}</td>
-                        <td className="py-1">{value.queuedAt}</td>
-                        <td className="py-1">{value.scanningAt}</td>
-                        <td className="py-1">{value.finishedAt}</td>
-                        <td className="py-1"><Badge color="success">{value.findingsCount}</Badge></td>
+                        <td>{value.repositoryName}</td>
+                        <td>{value.status}</td>
+                        <td>{value.queuedAt}</td>
+                        <td>{value.scanningAt}</td>
+                        <td>{value.finishedAt}</td>
+                        <td className="text-center"><Badge color="success">{value.findingsCount}</Badge></td>
                     </tr>
                 })
             );
@@ -65,7 +65,7 @@ class Results extends Component {
 
     render() {
         return (
-            <Container fluid>
+            <Container>
                 <Row>
                     <Col sm={6}>
                         <label><h3>Scan Results</h3></label>

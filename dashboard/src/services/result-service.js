@@ -2,16 +2,20 @@ import { get, put, post } from '../utils/http';
 import resultType from '../utils/meta';
 
 const mapResults = (results) => {
+
     results = results ? results.map((element) => {
+
+        element.findings = mapFindings(element.findings);
+
         const result = {
-            id: element.id,
-            repository: element.repository,
+            id: element._id,
+            repositoryName: element.repositoryName,
             status: element.status,
-            queuedAt: element.queuedAt,
-            scanningAt: element.scanningAt,
-            finishedAt: element.finishedAt,
+            queuedAt: formatDateTime(element.queuedAt),
+            scanningAt: formatDateTime(element.scanningAt),
+            finishedAt: formatDateTime(element.finishedAt),
             findingsCount: element.findings.length,
-            findings: mapFindings(element.findings)
+            findings: element.findings
         }
         return result;
     }) : [];
@@ -19,10 +23,14 @@ const mapResults = (results) => {
     return results;
 }
 
+const formatDateTime = (date = '') => {
+    return new Date(date).toLocaleString()
+}
+
 const mapFindings = (findings) => {
-    findings = findings ? findings.map((element) => {
+    return findings && findings.data ? findings.data.map((element) => {
         const finding = {
-            id: element.id,
+            id: element._id,
             ruleId: element.ruleId,
             description: element.description,
             severity: element.severity,
@@ -31,8 +39,6 @@ const mapFindings = (findings) => {
         }
         return finding;
     }) : [];
-
-    return findings;
 }
 
 const getAll = () => {
