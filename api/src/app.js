@@ -16,6 +16,8 @@ app.use('/results', ResultRouter);
 
 app.get('/', (req, res) => res.status(200).end());
 
+app.get('*', (req, res) => res.status(404).send('Not Found!!'));
+
 app.use((err, req, res, next) => {
     handleError(err, res);
 });
