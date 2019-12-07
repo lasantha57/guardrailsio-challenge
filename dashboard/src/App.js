@@ -8,6 +8,7 @@ import Navigation from './common/Navigation';
 import Results from './results/Results';
 import NewResult from './results/NewResult';
 import Findings from './results/Findings';
+import ErrorHandler from './common/ErrorHandler';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
@@ -60,7 +61,7 @@ class App extends Component {
                     {this.renderHeader()}
 
                     <Row>
-                        {this.renderRoutes()}
+                        <ErrorHandler>{this.renderRoutes()}</ErrorHandler>
                     </Row>
                 </Router>
             </Container>
