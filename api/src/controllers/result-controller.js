@@ -45,11 +45,12 @@ class ResultController {
     }
 
     async create(req, res, next) {
-        const { status, repositoryName, findings, queuedAt, scanningAt, finishedAt } = req.body;
+
+        const { statusId, repositoryName, findings, queuedAt, scanningAt, finishedAt } = req.body;
 
         try {
             const newResult = await ResultService.create({
-                status,
+                statusId,
                 repositoryName,
                 findings,
                 queuedAt,

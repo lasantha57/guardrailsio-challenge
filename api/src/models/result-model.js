@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ResultSchema = new Schema({
-    status: { type: String, default: 'queued' },
+    statusId: { type: Number, default: 1 },
     repositoryName: { type: String },
     findings: { type: JSON },
     queuedAt: { type: Date, default: Date.now },
