@@ -30,6 +30,20 @@ class ResultController {
         }
     }
 
+    async getFindingsById(req, res, next) {
+        const id = req.params.id;
+
+        try {
+            if (ValidationHelper.isNotNullOrEmpty(id)) {
+                throw new AppError(404, 'missing required id');
+            }
+            const results = await ResultService.getFindingsById(id);
+            res.json(results);
+        } catch (error) {
+            next(error)
+        }
+    }
+
     async deleteById(req, res, next) {
         const id = req.params.id;
 

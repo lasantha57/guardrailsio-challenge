@@ -22,6 +22,14 @@ class ResultService {
         }
     }
 
+    async getFindingsById(id) {
+        try {
+            return await Result.findOne({ _id: id }, { findings: 1 });
+        } catch (error) {
+            throw new AppError(500, `Unable to fetch record - ${error}`)
+        }
+    }
+
     async deleteById(id) {
         try {
             return await Result.remove({ '_id': id });
