@@ -50,7 +50,7 @@ class Results extends Component {
         } else {
             return (
                 results && results.map((value) => {
-                    return <tr key={value.id} onClick={() => this.showFindings(value.id)}>
+                    return <tr style={{ cursor: 'pointer' }} key={value.id} onClick={() => this.showFindings(value.id)}>
                         <td>{value.repositoryName}</td>
                         <td>{value.status}</td>
                         <td>{value.queuedAt}</td>
