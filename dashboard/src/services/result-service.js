@@ -1,5 +1,5 @@
 import { get, put, post } from '../utils/http';
-import resultType from '../utils/meta';
+import { statusTypes } from '../utils/meta';
 
 const mapResults = (results) => {
 
@@ -10,7 +10,8 @@ const mapResults = (results) => {
         const result = {
             id: element._id,
             repositoryName: element.repositoryName,
-            status: element.status,
+            statusId: element.statusId,
+            status: statusTypes[element.statusId - 1].name,
             queuedAt: formatDateTime(element.queuedAt),
             scanningAt: formatDateTime(element.scanningAt),
             finishedAt: formatDateTime(element.finishedAt),
@@ -28,7 +29,7 @@ const formatDateTime = (date = '') => {
 }
 
 const mapFindings = (findings) => {
-    return findings && findings.data ? findings.data.map((element) => {
+    return findings && findings.findings ? findings.findings.map((element) => {
         const finding = {
             id: element._id,
             ruleId: element.ruleId,

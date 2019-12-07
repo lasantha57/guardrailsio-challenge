@@ -1,18 +1,18 @@
-export const resultType = [
+export const statusTypes = [
     {
-        key: 'queued',
-        value: 'Queued'
+        id: 1,
+        name: 'Queued'
     },
     {
-        key: 'inProgress',
+        id: 2,
         name: 'In Progress'
     },
     {
-        key: 'success',
+        id: 3,
         name: 'Success'
     },
     {
-        key: 'failure',
+        id: 4,
         name: 'Failure'
     }
 ]
