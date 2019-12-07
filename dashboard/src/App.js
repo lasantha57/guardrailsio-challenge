@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 
+import { unregister } from './utils/http-intercept'; // register http interceptor
 import Header from './common/Header';
 import Navigation from './common/Navigation';
 import Results from './results/Results';
@@ -59,7 +60,6 @@ class App extends Component {
                     {this.renderHeader()}
 
                     <Row>
-                        {/* {this.renderNavigation()} */}
                         {this.renderRoutes()}
                     </Row>
                 </Router>
