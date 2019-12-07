@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Form, Row, Col, FormGroup, Label, Input, Button, Container } from 'reactstrap';
 import { statusTypes } from '../utils/meta';
-import CustomDropdown from '../common/CustomDropdown';
 
+import CustomDropdown from '../common/CustomDropdown';
 import { resultsService } from '../services/result-service';
+
 class NewResult extends Component {
 
     INITIAL_STATE = {
@@ -12,9 +13,9 @@ class NewResult extends Component {
             status: '',
             statusId: 1,
             repositoryName: '',
-            queuedAt: new Date().toISOString(),
-            scanningAt: new Date().toISOString(),
-            finishedAt: new Date().toISOString(),
+            queuedAt: formatDate(),
+            scanningAt: formatDate(),
+            finishedAt: formatDate(),
             findings: ''
         }
     }
@@ -24,8 +25,6 @@ class NewResult extends Component {
         this.state = {
             ...this.INITIAL_STATE
         }
-
-        console.log(this.INITIAL_STATE.scanResult.queuedAt)
     }
 
     back = () => {
@@ -71,9 +70,21 @@ class NewResult extends Component {
         });
     }
 
+    isValidJSONString = (str) => {
+        if (str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     render() {
 
         const { scanResult } = this.state;
+        const validForm = scanResult.repositoryName && scanResult.scanningAt && scanResult.finishedAt && scanResult.queuedAt && this.isValidJSONString(scanResult.findings);
 
         return (
             <Container fluid>
@@ -82,7 +93,7 @@ class NewResult extends Component {
                         <label><h3>Add New Scan Result</h3></label>
                     </Col>
                     <Col sm={6}>
-                        <Button color="success float-right text-bold ml-3" onClick={this.addScanResult}>Save Scan Result</Button>
+                        <Button disabled={!validForm} color="success float-right text-bold ml-3" onClick={this.addScanResult}>Save Scan Result</Button>
                         <Button color="secondary float-right text-bold" onClick={this.back}>Back</Button>
                     </Col>
                 </Row>
@@ -122,7 +133,7 @@ class NewResult extends Component {
                                 <Col md={4}>
                                     <FormGroup>
                                         <Label for="finishedAt">Finished At</Label>
-                                        <Input type="datetime-local" name="finishedAt" id="finishedAt" value={scanResult.scanningAt} onChange={this.handleFormValueChange} />
+                                        <Input type="datetime-local" name="finishedAt" id="finishedAt" value={scanResult.finishedAt} onChange={this.handleFormValueChange} />
                                     </FormGroup>
                                 </Col>
                             </Row>
@@ -185,6 +196,10 @@ class NewResult extends Component {
                 </Row>
             </Container>);
     }
+}
+
+const formatDate = () => {
+    return new Date().toISOString().split('.')[0];
 }
 
 export default NewResult;

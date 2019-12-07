@@ -28,7 +28,7 @@ const formatDateTime = (date = '') => {
 const mapFindings = (data) => {
     return data.findings && data.findings.findings ? data.findings.findings.map((element) => {
         const finding = {
-            ruleId: element.ruleId || '',
+            ruleId: (element || '').ruleId,
             description: ((element || '').metadata || '').description,
             severity: ((element || '').metadata || '').severity,
             pathName: ((element || '').location || '').path,
