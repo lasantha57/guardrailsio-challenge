@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Container, Row, Col } from 'reactstrap';
 
 import { unregister } from './utils/http-intercept'; // register http interceptor
 import Header from './common/Header';
 import Navigation from './common/Navigation';
-import Results from './results/Results';
-import NewResult from './results/NewResult';
-import Findings from './results/Findings';
 import ErrorHandler from './common/ErrorHandler';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+
+const Results = lazy(() => import('./results/Results'));
+const NewResult = lazy(() => import('./results/NewResult'));
+const Findings = lazy(() => import('./results/Findings'));
 
 class App extends Component {
 
@@ -20,13 +21,15 @@ class App extends Component {
             <Col sm={12} className="py-4">
                 <Row>
                     <Col sm={12}>
-                        <Switch>
-                            <Route exact path="/results/new" component={NewResult} />
-                            <Route exact path="/results/findings/:id" component={Findings} />
-                            <Route exact path="/results" component={Results} />
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <Switch>
+                                <Route exact path="/results/new" component={NewResult} />
+                                <Route exact path="/results/findings/:id" component={Findings} />
+                                <Route exact path="/results" component={Results} />
 
-                            <Redirect to="/results" />
-                        </Switch>
+                                <Redirect to="/results" />
+                            </Switch>
+                        </Suspense>
                     </Col>
                 </Row>
             </Col>

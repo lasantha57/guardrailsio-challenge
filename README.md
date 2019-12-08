@@ -40,5 +40,6 @@ API END POINT: *`http:localhost:8080/api`*
 - Checked for security vulnerabilities in open source libraries
 - Assumed that Findings will be submitted through json input
 - No validation messages in frontend
-- used reactstrap for UI components
-- used bootstrap as UI framework
+- Used reactstrap for UI components
+- Used bootstrap as UI framework
+- Added lazy loading support on frontend
