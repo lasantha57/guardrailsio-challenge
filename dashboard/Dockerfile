@@ -1,15 +1,11 @@
-FROM node:latest
+FROM node:alpine
 
-WORKDIR /dashboard
+COPY . /src
 
-COPY package*.json ./
+WORKDIR /src
 
 RUN npm install --production
 
-COPY . .
-
-RUN npm run build
-
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+CMD ["npm", "start"]

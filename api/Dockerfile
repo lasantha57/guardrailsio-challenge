@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:alpine
 
 COPY . /src
 
@@ -8,4 +8,4 @@ RUN npm install --production
 
 EXPOSE 4000
 
-CMD npm start
+CMD ["npm", "start"]
