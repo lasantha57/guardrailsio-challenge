@@ -2,11 +2,12 @@
 const mongoose = require('mongoose');
 const app = require('./src/app');
 
+const { DB_URI } = require('./src/config/config');
 const Logger = require('./src/utils/logger');
 
 const port = process.env.PORT || 4000;
 
-mongoose.connect(process.env.MONGO_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const startApp = () => {
     app.listen(port, () => console.log(`Api listening on port ${port}!`));
