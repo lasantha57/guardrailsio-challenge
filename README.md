@@ -1,14 +1,5 @@
-# guardrailsio-challenge
-GuardRails Full Stack Engineer Challenge
-
-# Troubleshoot
-Node Sass could not find a binding for your current environment: Linux 64-bit with Node.js 12.x
-
-This usually happens because your environment has changed since running npm install.
-Run 'npm rebuild node-sass' to download the binding for your current environment.
-
 ## Sections
-- **web/dashboard** 
+- **dashboard** 
     - port `*3000*`
     - url `*http:localhost:3000*`
     - nginxUrl `*http:localhost:8080*`
@@ -25,8 +16,6 @@ Run 'npm rebuild node-sass' to download the binding for your current environment
 
 ## Pre-requests
 - Docker
-- NodeJs
-- ReactJs
 
 ## Build and Run
 Execute *`docker-compose up --build`*
@@ -41,3 +30,13 @@ End Point: `*http:localhost:8080*`
 - *`docker ps`* List all runing images
 - *`docker images`* List all images
 - *`docker system prune`* Delete all unused containers and images
+
+# Additional Information
+- Didn't focus on unit tests for both frontend and backend
+- Only added the basic route validations
+- Tried using nginx
+- Checked for security vulnerabilities in open source libraries
+- Assumed that Findings will be submitted through json input
+- No validation messages in frontend
+- used reactstrap for UI components
+- used bootstrap as UI framework
