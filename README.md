@@ -23,7 +23,9 @@ Execute *`docker-compose up --build`*
 ## Run without build
 Execute *`docker-compose up`*
 
-End Point: `*http:localhost:8080*`
+## URL and API end point
+URL: `*http:localhost:8080*`
+API END POINT: `*http:localhost:8080/api`
 
 # Docker
 ## Docker Basic Commands
