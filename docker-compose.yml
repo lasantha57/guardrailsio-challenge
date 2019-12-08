@@ -24,7 +24,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./web/public:/srv/www/static
+      #- ./web/public:/srv/www/static
       - ./default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - db
