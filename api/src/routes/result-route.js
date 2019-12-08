@@ -10,6 +10,6 @@ router.get('/:id/findings', ResultController.getFindingsById);
 
 router.delete('/:id', ResultController.deleteById);
 
-router.post('/', ResultController.create);
+router.post('/', ResultController.validate('create'), ResultController.create);
 
 module.exports = router;
