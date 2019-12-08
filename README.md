@@ -1,18 +1,18 @@
 ## Sections
 - **dashboard** 
-    - port `*3000*`
-    - url `*http:localhost:3000*`
-    - nginxUrl `*http:localhost:8080*`
+    - port *`3000`*
+    - url *`http:localhost:3000`*
+    - nginxUrl *`http:localhost:8080`*
 
 - **api**
-    - port `*4000*`
-    - url `*http:localhost:4000*`
-    - nginxUrl `*http:localhost:8080/api/*`
-    - sample end point GET:`*http:localhost:8080/api/results`
+    - port *`4000`*
+    - url *`http:localhost:4000`*
+    - nginxUrl *`http:localhost:8080/api/`*
+    - sample end point GET:*`http:localhost:8080/api/results`*
 
 - **nginx**
-    - port `*8080*`
-    - url `*http://localhost:8080*`
+    - port *`8080`*
+    - url *`http://localhost:8080`*
 
 ## Pre-requests
 - Docker
@@ -24,8 +24,8 @@ Execute *`docker-compose up --build`*
 Execute *`docker-compose up`*
 
 ## URL and API end point
-URL: `*http:localhost:8080*`
-API END POINT: `*http:localhost:8080/api`
+URL: *`http:localhost:8080`*
+API END POINT: *`http:localhost:8080/api`*
 
 # Docker
 ## Docker Basic Commands
