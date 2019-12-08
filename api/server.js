@@ -5,9 +5,8 @@ const app = require('./src/app');
 const Logger = require('./src/utils/logger');
 
 const port = process.env.PORT || 4000;
-const MONGO_DB_URI = process.env.MONGO_DB_URI || 'mongodb://localhost:27017/guardrail';
 
-mongoose.connect(MONGO_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGO_DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const startApp = () => {
     app.listen(port, () => console.log(`Api listening on port ${port}!`));
