@@ -5,6 +5,10 @@ import { statusTypes } from '../utils/meta';
 import CustomDropdown from '../common/CustomDropdown';
 import { resultsService } from '../services/result-service';
 
+const formatDate = () => {
+    return new Date().toISOString().split('.')[0];
+}
+
 class NewResult extends Component {
 
     INITIAL_STATE = {
@@ -196,10 +200,6 @@ class NewResult extends Component {
                 </Row>
             </Container>);
     }
-}
-
-const formatDate = () => {
-    return new Date().toISOString().split('.')[0];
 }
 
 export default NewResult;

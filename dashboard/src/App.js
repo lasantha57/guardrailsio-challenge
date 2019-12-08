@@ -11,7 +11,7 @@ import Findings from './results/Findings';
 import ErrorHandler from './common/ErrorHandler';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.scss';
+import './App.css';
 
 class App extends Component {
 
@@ -45,10 +45,8 @@ class App extends Component {
 
     renderNavigation = () => {
         return (
-            <Col md={2} className="d-none d-md-block bg-white sidebar shadow-sm">
-                <div className="sidebar-sticky">
-                    <Navigation></Navigation>
-                </div>
+            <Col md={2} className="d-none d-md-block bg-white shadow-sm">
+                <Navigation></Navigation>
             </Col>
         )
     }
