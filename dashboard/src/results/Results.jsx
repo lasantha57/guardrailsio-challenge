@@ -10,14 +10,6 @@ const Results = () => {
     const [showLoadingSpinner, setShowLoadingSpinner] = useState(true);
     const history = useHistory();
 
-    const createNew = () => {
-        history.push('/results/new');
-    }
-
-    const showFindings = (id) => {
-        history.push(`/results/findings/${id}`);
-    }
-
     useEffect(() => {
         const fetchResults = async () => {
             try {
@@ -32,6 +24,14 @@ const Results = () => {
         }
         fetchResults();
     }, []);
+
+    const createNew = () => {
+        history.push('/results/new');
+    }
+
+    const showFindings = (id) => {
+        history.push(`/results/findings/${id}`);
+    }
 
     const renderTableContent = () => {
         if (showLoadingSpinner) {
@@ -61,7 +61,7 @@ const Results = () => {
                     <label><h3>Scan Results</h3></label>
                 </Col>
                 <Col sm={6}>
-                    <Button color="success float-right text-bold" onClick={() => createNew()}><i className="fas fa-plus"></i>  Add New Scan Result</Button>
+                    <Button color="success float-right text-bold" onClick={createNew}><i className="fas fa-plus"></i>  Add New Scan Result</Button>
                 </Col>
             </Row>
             <Row>
