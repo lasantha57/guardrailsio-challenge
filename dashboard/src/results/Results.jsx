@@ -1,48 +1,39 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { Container, Row, Col, Button, Table, Spinner, Badge } from 'reactstrap';
 
 import { resultsService } from '../services/result-service';
 
-class Results extends Component {
+const Results = () => {
 
-    INITIAL_STATE = {
-        results: [],
-        showLoadingSpinner: true
+    const [results, setResults] = useState([]);
+    const [showLoadingSpinner, setShowLoadingSpinner] = useState(true);
+    const history = useHistory();
+
+    const createNew = () => {
+        history.push('/results/new');
     }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            ...this.INITIAL_STATE
-        }
+    const showFindings = (id) => {
+        history.push(`/results/findings/${id}`);
     }
 
-    createNew = () => {
-        this.props.history.push('/results/new');
-    }
-
-    showFindings = (id) => {
-        this.props.history.push(`/results/findings/${id}`);
-    }
-
-    componentDidMount = () => {
-        let { results, showLoadingSpinner } = this.state;
-
-        resultsService.getAll().then((response) => {
-            showLoadingSpinner = false;
-            if (response.statusCode === 200) {
-                results = response.data;
-                this.setState({ results, showLoadingSpinner });
+    useEffect(() => {
+        const fetchResults = async () => {
+            try {
+                const response = await resultsService.getAll();
+                setShowLoadingSpinner(false);
+                if (response.statusCode === 200) {
+                    setResults(response.data);
+                }
+            } catch (error) {
+                setShowLoadingSpinner(false);
             }
-        }).catch((error) => {
-            showLoadingSpinner = false;
-            this.setState({ showLoadingSpinner });
-        });
-    }
+        }
+        fetchResults();
+    }, []);
 
-    renderTableContent = () => {
-        const { results, showLoadingSpinner } = this.state;
-
+    const renderTableContent = () => {
         if (showLoadingSpinner) {
             return (<tr className="text-center"><td colSpan={6}><Spinner color="primary" /></td></tr>);
         } else if (results.length === 0) {
@@ -50,7 +41,7 @@ class Results extends Component {
         } else {
             return (
                 results && results.map((value) => {
-                    return <tr style={{ cursor: 'pointer' }} key={value.id} onClick={() => this.showFindings(value.id)}>
+                    return <tr style={{ cursor: 'pointer' }} key={value.id} onClick={() => showFindings(value.id)}>
                         <td>{value.repositoryName}</td>
                         <td>{value.status}</td>
                         <td>{value.queuedAt}</td>
@@ -63,38 +54,36 @@ class Results extends Component {
         }
     }
 
-    render() {
-        return (
-            <Container>
-                <Row>
-                    <Col sm={6}>
-                        <label><h3>Scan Results</h3></label>
-                    </Col>
-                    <Col sm={6}>
-                        <Button color="success float-right text-bold" onClick={() => this.createNew()}><i className="fas fa-plus"></i>  Add New Scan Result</Button>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm={12}>
-                        <Table hover>
-                            <thead>
-                                <tr>
-                                    <th>Repository Name</th>
-                                    <th>Status</th>
-                                    <th>Queued At</th>
-                                    <th>Scanning At</th>
-                                    <th>Finished At</th>
-                                    <th>Findings</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.renderTableContent()}
-                            </tbody>
-                        </Table>
-                    </Col>
-                </Row>
-            </Container>);
-    }
+    return (
+        <Container>
+            <Row>
+                <Col sm={6}>
+                    <label><h3>Scan Results</h3></label>
+                </Col>
+                <Col sm={6}>
+                    <Button color="success float-right text-bold" onClick={() => createNew()}><i className="fas fa-plus"></i>  Add New Scan Result</Button>
+                </Col>
+            </Row>
+            <Row>
+                <Col sm={12}>
+                    <Table hover>
+                        <thead>
+                            <tr>
+                                <th>Repository Name</th>
+                                <th>Status</th>
+                                <th>Queued At</th>
+                                <th>Scanning At</th>
+                                <th>Finished At</th>
+                                <th>Findings</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {renderTableContent()}
+                        </tbody>
+                    </Table>
+                </Col>
+            </Row>
+        </Container>);
 }
 
 export default Results;
