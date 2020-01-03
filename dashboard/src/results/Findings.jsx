@@ -1,49 +1,34 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { Container, Row, Col, Button, Table, Spinner } from 'reactstrap';
 
 import { resultsService } from '../services/result-service';
 
-class Findings extends Component {
+const Findings = () => {
 
-    INITIAL_STATE = {
-        findings: [],
-        showLoadingSpinner: true
-    }
+    const [showLoadingSpinner, setLoadingSpinner] = useState(true);
+    const [findings, setFindings] = useState([]);
+    const match = useRouteMatch();
+    const history = useHistory();
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            ...this.INITIAL_STATE
+    useEffect(() => {
+        const fetchFindings = async () => {
+            try {
+                const response = await resultsService.getFindingsById(match.params.id);
+                setLoadingSpinner(false);
+                setFindings(response.data);
+            } catch (error) {
+                setLoadingSpinner(false);
+            }
         }
+        fetchFindings();
+    }, []);
+
+    const back = () => {
+        history.push('/results');
     }
 
-    back = () => {
-        this.props.history.push('/results');
-    }
-
-    componentDidMount = () => {
-        const params = this.props.match.params;
-
-        if (params) {
-
-            let { findings, showLoadingSpinner } = this.state;
-
-            resultsService.getFindingsById(params.id).then((response) => {
-                showLoadingSpinner = false;
-                if (response.statusCode === 200) {
-                    findings = response.data;
-                    this.setState({ findings, showLoadingSpinner });
-                }
-            }).catch((error) => {
-                showLoadingSpinner = false;
-                this.setState({ showLoadingSpinner });
-            });
-        }
-    }
-
-    renderTableContent = () => {
-        const { findings, showLoadingSpinner } = this.state;
-
+    const renderTableContent = () => {
         if (showLoadingSpinner) {
             return (<tr className="text-center"><td colSpan={6}><Spinner color="primary" /></td></tr>);
         } else if (findings.length === 0) {
@@ -63,37 +48,35 @@ class Findings extends Component {
         }
     }
 
-    render() {
-        return (
-            <Container>
-                <Row>
-                    <Col sm={6}>
-                        <label><h3>Findings</h3></label>
-                    </Col>
-                    <Col sm={6}>
-                        <Button color="secondary float-right text-bold" onClick={() => this.back()}>Back</Button>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm={12}>
-                        <Table hover>
-                            <thead>
-                                <tr>
-                                    <th>Rule Id</th>
-                                    <th>Description</th>
-                                    <th>Severity</th>
-                                    <th>Path Name</th>
-                                    <th>Code Line</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.renderTableContent()}
-                            </tbody>
-                        </Table>
-                    </Col>
-                </Row>
-            </Container>);
-    }
+    return (
+        <Container>
+            <Row>
+                <Col sm={6}>
+                    <label><h3>Findings</h3></label>
+                </Col>
+                <Col sm={6}>
+                    <Button color="secondary float-right text-bold" onClick={back}>Back</Button>
+                </Col>
+            </Row>
+            <Row>
+                <Col sm={12}>
+                    <Table hover>
+                        <thead>
+                            <tr>
+                                <th>Rule Id</th>
+                                <th>Description</th>
+                                <th>Severity</th>
+                                <th>Path Name</th>
+                                <th>Code Line</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {renderTableContent()}
+                        </tbody>
+                    </Table>
+                </Col>
+            </Row>
+        </Container>);
 }
 
 export default Findings;
